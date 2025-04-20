@@ -1,578 +1,1436 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<meta content="yes" name="apple-mobile-web-app-capable">
-<!-- 防止网页自动缩放 -->
-<title>萌山校区高一12月份月考成绩</title>
-<link rel="icon" type="image/x-icon" href="/Public/static/images/favicon.ico" />
-<link rel="stylesheet" href="/Public/static/jquery_weui/lib/weui.min.css">
-<link rel="stylesheet" href="/Public/static/jquery_weui/css/jquery-weui.min.css">
-<script src="/Public/static/jquery_weui/lib/jquery-2.1.4.js"></script>
-<script src="/Public/static/jquery_weui/js/jquery-weui.min.js"></script>
-<style type="text/css">
-.s_page-header_pic{
-	position:relative;display:table; width:100%;
-}
-.s_page-header_pic .banner-img{
-	position:relative;width:100%;
-}
-.s_page-header_pic .banner-text{
-	position: absolute;top:42%;text-align: center;width: 100%;font-size:22px;color:#fff;
-}
-.s_page-header_color{
-	padding:45px 20px;text-align:center;font-size:22px;color:#fff;
-}
-body,html{
-	background:#F0EFF4;
-	margin: 0;
-	padding:0;
-	height: 100%;
-}
-#wrapper {
-	min-height: 100%;
-	margin-bottom: -110px;
-}
-.ad-list{
- margin:10px;
-}
-#footer,.push {
-	height:120px;
-}
-.cert-box{
-	padding:20px;
-}
-.cert-box .cert-row{
-	margin-bottom:10px;
-}
-.cert-box .cert-row .b-txt{
-	font-weight:bold;
-}
-.weui-input{
-	border: 1px solid #ececec;
-	padding:5px;
-	box-sizing: border-box;
-	height: auto;
-	border-radius: 0;
-}
-.weui-cells {
-    font-size: 14px;
-}
-.more-container{
-	font-size:14px;text-align:center;margin-bottom: 10px;
-}
-.more-container a{
-	color:#0066FF;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WU-WANGZE-专属成绩数据可视化与对比</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); /* 科技感渐变背景 */
+            color: #e0e0e0; /* 浅色文字 */
+            line-height: 1.6;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-y: auto; /* 允许滚动 */
+        }
 
-<style>
-body{
-	height:auto;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
-}
-html,body{
-	background: #FFFFFF;
-}
-*{ 
-    -webkit-tap-highlight-color: rgba(0,0,0,0);  
-	-webkit-tap-highlight-color: transparent;
-	-webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    background-color: transparent;
-}
-.table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 10px;
-}
-.table-bordered {
-    border: 1px solid #ddd;
-}
-.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
-    border: 1px solid #ddd;
-}
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
-}
-td, th {
-    padding: 0;
-}
-a:link{text-decoration:none;} 
-a:visited{text-decoration:none;} 
-a:active{text-decoration:none;}
-.table{
-	table-layout:fixed;word-wrap:break-word;
-}.table-bordered>tbody>tr>td, 
-.table-bordered>tbody>tr>th, 
-.table-bordered>tfoot>tr>td, 
-.table-bordered>tfoot>tr>th, 
-.table-bordered>thead>tr>td, 
-.table-bordered>thead>tr>th{
-	border:1px solid #a0cffe;
-}
-.table .left_cell{
-		width:30%;	text-align:left;
-	background:#f0f8ff;
-}
-.table .right_cell{
-		width:70%;	text-align:left;
-	background:#ffffff;
-	word-break: break-all;
-}
-.table .left_cell .form_cell{
-	color:#333333;
-}
-.result_tips{
-	color:#2568cc;
-	padding:0;
-}
-.editable_input{
-	border:1px solid #C0C0C0;
-	width:100%;
-	border-radius:0;
-	font-size:15px;
-}
-.js_result_table input[type=text]{
-	height:30px;
-}
-.js_result_table .radio,.js_result_table .checkbox{
-	vertical-align:middle;
-}
-.js_result_table .label{
-	margin-right: 10px;
-}
-.weui-btn_small{
-	display: inline-block;
-    line-height: 2.3;
-    font-size: 13px;
-}
-.red-star{
-	color: red;
-    vertical-align: middle;
-}
-#open-sign-window{
-	display:inline-block;
-	font-size:13px;
-	margin-top:45px;
-	padding:4px 10px;
-	cursor:pointer;
-	background:#ebebeb;
-	border:1px solid #a3a3a3;
-	border-radius:2px;
-}
-.js-edit-item .label span{
-	vertical-align: middle;
-}
-.vip-result-tips{
-	margin:20px 0;
-}
-.vip-result-tips img{
-	max-width:100%;
-}
-.scale-img{
-    max-width: 100%;
-}
-.qr-box{
-	background-color:#f2f4f6;
-	padding:10px 20px;
-	margin:10px;
-	display:flex;
-	justify-content: space-between;
-	align-items: center;
-}
-.qr-box .title{
-	font-size:16px;
-	font-weight: bold;
-}
-.qr-box .sub-title{
-	margin-top: 4px;
-}
-.push {
- 	height:1px;
-}
-.ad-container {
-	padding: 10px; background-color: #EAEAEA;
-}
-.more-opt-box{
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-    background: #F9F9F9;
-    box-sizing: border-box;
-    box-shadow: 0 4px 12px 0 #CCCCCC;
-    padding: 15px;
-	display:flex;
-	font-size:13px;
-	justify-content: space-between;
-	align-items: center;
-	text-align: center;
-}
-.more-opt-item a{
-	display: flex;
-	align-items: center;
-}
-.more-opt-box.normal-user .more-opt-item a{
-	display: block;
-	font-size: 10px;
-	text-align: center;
-}
-.more-opt-item .icon{
-	height: 14px;
-	width: 14px;
-	margin-right: 4px;
-}
-.more-opt-box.normal-user .more-opt-item .icon{
-	margin-right: 0;
-}
-.more-opt-item a,.more-opt-item a:hover,.more-opt-item a:visited,.more-opt-item a:active{
-	color: #333;
-}
-.weui_btn_plain_primary {
-    color: #04BE02;
-    border: 1px solid #04BE02;
-}
-.separator{
-  width: 1px;
-  height: 15px;
-  background: #cccccc;
-}
-.menu-list-box{
-	width:180px;
-	display:flex;
-	justify-content: flex-end;
-	padding-right:12px;
-}
-.menu-list-box .more-opt-item:not(:last-child){
-	margin-right: 28px;
-}
-.menu-list-box .more-opt-item .icon{
-	height: 18px;
-	width: 18px;
-}
-</style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?ca667b4e604f41172ad66175206437c5";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #00e0ff; /* 科技感标题颜色 */
+            text-shadow: 0 0 10px #00bfff; /* 光晕效果 */
+        }
 
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.08); /* 半透明卡片背景 */
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* 半透明边框 */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* 阴影 */
+        }
+
+        h2 {
+            color: #00f7ff; /* 子标题颜色 */
+            border-bottom: 2px solid #00bfff; /* 下划线 */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-forms-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自动适应列宽 */
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .student-input-card {
+            background-color: rgba(255, 255, 255, 0.05); /* 学生卡片背景 */
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .student-input-card h3 {
+            color: #00e0ff;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 191, 255, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .student-input-card textarea {
+            width: calc(100% - 20px);
+            height: 180px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 0.9em;
+            resize: vertical;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+         .student-input-card textarea:focus {
+            border-color: #00bfff;
+        }
+
+        .student-input-card .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: auto; /* 将按钮推到底部 */
+        }
+
+         .student-input-card button {
+             flex-grow: 1; /* 按钮填充可用空间 */
+             padding: 10px 15px;
+             font-size: 1em;
+         }
+
+         .student-input-card .remove-btn {
+             background-color: #ff6384;
+             color: #1a1a2e;
+         }
+
+         .student-input-card .remove-btn:hover {
+             background-color: #ff8e9e;
+         }
+
+
+        button {
+            background-color: #00bfff; /* 按钮背景色 */
+            color: #1a1a2e; /* 按钮文字颜色 */
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease-in-out;
+            outline: none;
+            flex-shrink: 0; /* 防止按钮收缩 */
+        }
+
+        button:hover {
+            background-color: #00e0ff; /* 悬停效果 */
+        }
+
+        button:active {
+            transform: scale(0.98); /* 点击效果 */
+        }
+
+        #add-student-btn {
+            display: block;
+            margin: 20px auto; /* 居中 */
+            padding: 15px 30px;
+        }
+
+
+        .student-list {
+            margin-top: 15px;
+            color: #a0a0a0;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .controls, .comparison-controls {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap; /* 允许换行 */
+            gap: 20px; /* 间隔 */
+            align-items: center;
+        }
+
+        .controls label, .comparison-controls label {
+            color: #b0b0b0;
+            margin-right: 5px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            appearance: none; /* 移除默认箭头 */
+            /* 自定义箭头 */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e0e0e0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 12px auto;
+            padding-right: 30px; /* 为自定义箭头留空间 */
+        }
+
+        select option {
+            background: #1a1a2e; /* Option背景色 */
+            color: #e0e0e0; /* Option文字颜色 */
+        }
+
+        select:focus {
+             border-color: #00bfff; /* 聚焦时高亮 */
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* 控制图表最大宽度 */
+            margin: 0 auto;
+            height: 400px; /* 固定图表高度 */
+        }
+
+         .comparison-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* 控制图表最大宽度 */
+            margin: 20px auto; /* 与上方对比结果间隔 */
+            height: 400px; /* 固定图表高度 */
+         }
+
+        canvas {
+            background-color: rgba(255, 255, 255, 0.05); /* 图表背景 */
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .comparison-controls {
+            margin-bottom: 15px; /* 调整间隔 */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+         .comparison-chart-controls {
+             margin-bottom: 20px;
+             display: flex;
+             flex-wrap: wrap;
+             gap: 20px;
+             align-items: center;
+             justify-content: center; /* 图表控制居中 */
+         }
+
+         .comparison-controls .select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #secondary-student-select {
+            min-width: 150px; /* 确保多选框有一定宽度 */
+            min-height: 35px; /* 确保单行高度 */
+            height: auto; /* 允许内容决定高度 */
+            max-height: 150px; /* 设置最大高度并添加滚动条 */
+            overflow-y: auto;
+        }
+
+        .comparison-results {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 191, 255, 0.1); /* 对比结果背景 */
+            border: 1px solid #00bfff;
+            border-radius: 10px;
+        }
+
+        .comparison-results h3 {
+            color: #00f7ff;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed rgba(0, 191, 255, 0.5);
+            padding-bottom: 5px;
+        }
+
+        .comparison-results p {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .comparison-results p::before {
+            content: '•';
+            color: #00e0ff;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .input-forms-container {
+                grid-template-columns: 1fr; /* 小屏幕单列 */
+            }
+
+            .controls, .comparison-controls, .comparison-chart-controls { /* 应用到所有控制组 */
+                flex-direction: column; /* 小屏幕下垂直排列 */
+                align-items: flex-start;
+            }
+
+            .comparison-controls .select-group {
+                 flex-direction: column;
+                 align-items: flex-start;
+                 gap: 5px;
+            }
+
+             button {
+                width: 100%; /* 按钮占满宽度 */
+                margin-top: 10px;
+             }
+
+             select {
+                width: 100%; /* 选择框占满宽度 */
+                margin-bottom: 10px;
+                padding-right: 8px; /* 减小右边距 */
+             }
+
+             #secondary-student-select {
+                min-width: unset; /* 移除最小宽度限制 */
+                width: 100%;
+                margin-bottom: 10px;
+             }
+
+            .chart-container, .comparison-chart-container { /* 应用到所有图表容器 */
+                height: 300px; /* 调整小屏幕图表高度 */
+            }
+        }
+    </style>
 </head>
 <body>
-	<div id="wrapper">
-			<div style="padding: 20px 20px 0;text-align: center;font-size: 22px;color: #333333;">查询结果</div>
-		
-<div id="result_content" class="container" style="margin-top:20px;">
-		<div id="result_data_table">
-			<table class="table table-bordered s_table-bordered js_result_table" data-id="2189">
-			<tr>
-										<td class="left_cell"><span >班级</span></td>
-											<td class="right_cell">高一42班</td>									</tr><tr>
-										<td class="left_cell"><span >序</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >姓名</span></td>
-											<td class="right_cell">吴旺泽</td>									</tr><tr>
-										<td class="left_cell"><span >总分</span></td>
-											<td class="right_cell">1050</td>									</tr><tr>
-										<td class="left_cell"><span >总分名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >语文</span></td>
-											<td class="right_cell">150</td>									</tr><tr>
-										<td class="left_cell"><span >语文名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >数学</span></td>
-											<td class="right_cell">150</td>									</tr><tr>
-										<td class="left_cell"><span >数学名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >英语</span></td>
-											<td class="right_cell">150</td>									</tr><tr>
-										<td class="left_cell"><span >英语名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >物理</span></td>
-											<td class="right_cell">100</td>									</tr><tr>
-										<td class="left_cell"><span >物理名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >化学</span></td>
-											<td class="right_cell">100</td>									</tr><tr>
-										<td class="left_cell"><span >化学名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >生物</span></td>
-											<td class="right_cell">100</td>									</tr><tr>
-										<td class="left_cell"><span >生物名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >政治</span></td>
-											<td class="right_cell">100</td>									</tr><tr>
-										<td class="left_cell"><span >政治名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >历史</span></td>
-											<td class="right_cell">100</td>									</tr><tr>
-										<td class="left_cell"><span >历史名次</span></td>
-											<td class="right_cell">1</td>									</tr><tr>
-										<td class="left_cell"><span >地理</span></td>
-											<td class="right_cell">100</td>									</tr><tr>
-										<td class="left_cell"><span >地理名次</span></td>
-											<td class="right_cell">1</td>									</tr>					</table>		</div>
-		<div style="text-align:center;">
-					</div>
-				<div class="result_tips" style="margin:20px 0;">我想如果你不傻的话，你应该知道这是假的</div>		<div style="margin-bottom:10px;">
-					</div></div>
-<div class="qr-box">
-	<div>
-		<div class="title">长按关注查询公众号</div>
-		<div class="sub-title">快速进入查询 保存结果 接收通知</div>
-	</div>
-	<div>
-	    <img style="width:100px;height:100px;" src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFo8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyUEJUWW93bUxjRUcxMDAwMDAwN1MAAgTG4AxnAwQAAAAA"/>
-	</div>
-</div><div style="height:70px;"></div>
-		<div class="more-opt-box normal-user">
-		<div>
-			<a href="https://mp.weixin.qq.com/s/-xUYNNu4agkIoo33u3OPCg" style="display:inline-flex;align-items:center;">
-				<img style="height:24px;" src="https://o1s00s4d.yichafen.com/Public/static/images/ycfwpt-logo.png"/>
-				<span style="font-size:15px;color:#000;font-weight:bold;">发查询用<span style="color:#2568cc;">易查分</span></span>
-			</a>
-		</div>
-		<div class="menu-list-box">
-			<div class="more-opt-item" id="doLockBtn">
-				<a href="javascript:;">
-					<img class="icon" src="/Public/Mark/images/result/lock.png"/>
-					<div class="txt">锁定</div>
-				</a>
-			</div>
-			<div class="more-opt-item">
-				<a href="https://mp.weixin.qq.com/s/idGjIb-lrEJeHsCmbmfcBQ">
-					<img class="icon" src="/Public/Mark/images/result/save.png"/>
-					<div class="txt">保存</div>
-				</a>
-			</div>
-			<div class="more-opt-item">
-				<a href="https://mp.weixin.qq.com/s/H5fIi8vcubS76BTB6P-_7g">
-					<img class="icon" src="/Public/Mark/images/result/pdf.png"/>
-					<div class="txt">导出</div>
-				</a>
-			</div>
-		</div>
-		<!-- <div class="more-opt-item">
-			<a href="https://mp.weixin.qq.com/s?__biz=Mzg2MTgzNDY4MA==&mid=2247483787&idx=1&sn=857cdeac39a0bfd4e3340e6342e70bd1&chksm=ce105d5cf967d44a5ae5171ec4f53e866852a41fe77a363a3db17e97ec8537662baff47f14c1#rd">
-				<img class="icon" src="/Public/Mark/images/result/help.png"/>
-				<span class="txt">更多说明</span>
-			</a>
-		</div> -->
-	</div>
-		<div class="push"></div>
-	</div>
-	<!-- /**e69cace7ab99e68980e69c89e4bba3e7a081e5a48de588b6e887aa796963686166656e2e636f6d**/  -->
-	
-	
-<script type="text/javascript">
-$("#doLockBtn").click(function(){
-    	location.href="https://mp.weixin.qq.com/s/r-SWboLaov0a0U7dYEOPaA"});
-$("#doSaveEditedFieldsBtn").click(function(){
-	var result = checkData();
-	if(result===false){
-		return;
-	}
-				$.confirm("确认提交吗？", function() {
-			saveData(result);
-		}, function() {});});
+    <div class="container">
+        <header>
+            <h1>成绩数据可视化与对比</h1>
+            <p>为每个学生添加输入框，导入数据，查看图表并进行多人对比</p>
+        </header>
 
-function checkData(){
-	var updateData = [];
-	var valid = true;
-	$("#result_content .js_result_table").each(function(index,ele){
-		var data = {};
-		data['id'] = $(ele).data("id");
-		var editedFields = getEditedFields(ele);
-		if(editedFields === false){
-			valid = false;
-			return false;
-		}
-		data['editedFields'] = editedFields;
-		updateData.push(data);
-	});
-	if(!valid){
-		return false;
-	}
-	return updateData;
-}
+        <section class="input-section card">
+            <h2>导入成绩数据</h2>
+             <p style="color: #b0b0b0; font-size: 0.9em;">点击下方按钮添加学生的输入框，将该学生的成绩数据粘贴到框内，每行一个键值对，用空格或Tab分隔键和值（如 "姓名 张三"）。</p>
+            <button id="add-student-btn">添加新学生</button>
+            <div id="student-input-forms" class="input-forms-container">
+                </div>
+            <div id="imported-students" class="student-list">
+                未导入任何学生数据。
+            </div>
+        </section>
 
-function saveData(updateData){
-	$("#doSaveEditedFieldsBtn").prop('disabled', true);
-	$("#doSaveEditedFieldsBtn").addClass('weui-btn_disabled');
-	$("#doSaveEditedFieldsBtn").text('提交中...');
-	$.post("/public/dosaveeditedfields.html", {updateData: updateData}, function(result){
-		$("#doSaveEditedFieldsBtn").prop('disabled', false);
-		$("#doSaveEditedFieldsBtn").removeClass('weui-btn_disabled');
-		$("#doSaveEditedFieldsBtn").text('确认提交');
-		if(result.status == 1){
-			location.href="/public/normalsuccess/type/editfield_submit_success.html"
-		}else{
-			$.alert(result.info);
-		}
-	},"json");
-}
+        <section class="visualization-section card">
+            <h2>单人成绩图表</h2>
+            <div class="controls">
+                <label for="student-select">选择学生:</label>
+                <select id="student-select"></select>
 
-function getEditedFields(ele){
-	var editedFields = [];
-	var valid = true;
-	$(ele).find(".js-edit-item").each(function(index,ele){
-		var type = $(ele).data('type');
-		if($(ele).is('div')){
-			var name = $(ele).data('name');
-			var id = $(ele).data('id');
-			var inputName = name+'-'+id;
-			if(type=='checkbox'){
-				var chk_vals = [];
-				$("input[name='"+inputName+"']:checked").each(function(){
-					chk_vals.push($(this).val());
-				});
-				var value = chk_vals.join(",");
-			}else{
-				var value = $("input[name='"+inputName+"']:checked").val();
-			}
-		}else{
-			var name = $(ele).attr("name");
-		    var value = $(ele).val();
-		}
-		value = (value==undefined?'':value);
-		var required = $(ele).data('required');
-		var label = $(ele).data('label');
-		var rule = $(ele).data('rule');
-		if(required=='yes' && value==''){
-		    if(type=='image'){
-		        $.alert('['+label+']请上传图片');
-		    }else{
-		        $.alert('['+label+']不能为空');
-		    }
-			valid = false;
-			return false;
-		}
-		if(type=='text' && value.length>Number(rule)){
-			$.alert('['+label+']长度不能超过'+rule+'个字符');
-			valid = false;
-			return false;
-		}
-		if(type=='mobile' && value!='' && !checkMobile(value)){
-			$.alert('['+label+']请填写正确的手机号');
-			valid = false;
-			return false;
-		}
-		if(type=='idcard' && value!='' && !checkIdcard(value)){
-			$.alert('['+label+']请填写正确的身份证号');
-			valid = false;
-			return false;
-		}
-		var m = {};
-		m['name'] = name;
-		if(type=='idcard'){
-		    m['value'] = value?value.toUpperCase():value;
-		}else{
-		    m['value'] = value;
-		}
-		editedFields.push(m);
-	});
-	if(valid){
-		return editedFields;
-	}
-	return false;
-}
+                <label for="chart-type-select">选择图表类型:</label>
+                <select id="chart-type-select">
+                    <option value="radar">雷达图 (分数)</option>
+                    <option value="bar-score">柱状图 (分数)</option>
+                    <option value="line-score">折线图 (分数)</option>
+                    <option value="bar-rank">柱状图 (名次)</option>
+                    <option value="line-rank">折线图 (名次)</option>
+                </select>
+            </div>
+            <div class="chart-container">
+                <canvas id="grade-chart"></canvas>
+            </div>
+        </section>
 
-function checkIdcard(idcard){
-    var reg=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/;
-    return reg.test(idcard);
-}
+        <section class="comparison-section card">
+            <h2>成绩对比</h2>
+            <div class="comparison-controls">
+                <div class="select-group">
+                    <label for="primary-student-select">主要对比人:</label>
+                    <select id="primary-student-select"></select>
+                </div>
+                <div class="select-group">
+                    <label for="secondary-student-select">次要对比人 (可多选):</label>
+                    <select id="secondary-student-select" multiple></select>
+                </div>
+                <button id="compare-btn">开始对比</button>
+            </div>
 
-function checkMobile(mobile){
-	var reg=/^[1][0-9]{10}$/;
-	return reg.test(mobile);
-}
+            <div class="comparison-chart-controls" id="comparison-chart-controls">
+                 <label for="comparison-chart-type-select">对比图表类型 (分数):</label>
+                 <select id="comparison-chart-type-select">
+                     <option value="bar">柱状图</option>
+                     <option value="line">折线图</option>
+                     <option value="radar">雷达图</option>
+                 </select>
+            </div>
+            <div id="comparison-chart-container" class="comparison-chart-container">
+                 <canvas id="comparison-chart"></canvas>
+            </div>
 
-var pageType = "mobile";
-$("#jsNextPageBtn").click(function(){
-	var totalpage = $("#jsNextPageBtn").data('totalpage');
-	var currentpage = $("#jsNextPageBtn").data('currentpage');
-	var nextpage = currentpage+1;
-	if(nextpage > totalpage){
-		$("#jsNextPageBtn").hide();
-		return;
-	}else{
-		$("#jsNextPageBtn").data('currentpage', nextpage);
-	}
-	showLoading();
-	$.get("/public/queryresultpage.html", {pageType: pageType, pageNum:nextpage}, function(result){
-		$("#result_data_table").append(result);
-		if(nextpage >= totalpage){
-			$("#jsNextPageBtn").hide();
-		}
-		hideLoading();
-	});
-});
+            <div id="comparison-results" class="comparison-results">
+                </div>
+        </section>
+    </div>
 
-function showLoading(){
-	$("#jsNextPageBtn").hide();
-	$("#jsLoadingTip").show();
-}
-function hideLoading(){
-	$("#jsNextPageBtn").show();
-	$("#jsLoadingTip").hide();
-}
+    <script>
+        // 全局变量存储学生数据
+        let studentsData = [];
+        let currentSingleStudentChart = null; // 存储当前的单人图表实例
+        let currentComparisonChart = null; // 存储当前的对比图表实例
+        let studentFormCounter = 0; // 用于给学生输入框编号
 
-</script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?232a6abc98c0cbad791ca470aacb637b";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+        // 全校总人数
+        const totalStudents = 5000;
 
-<script type="text/javascript">
-var windowWidth = window.innerWidth;
-if(windowWidth>600){
-	$('body,html').css({background:'gray'});
-	if($('#wrapper').height() < window.innerHeight){
-		$("#wrapper").css({height:window.innerHeight+'px'});
-	}
-	if($('#result_content').length>0){
-		$('.more-opt-box').css({width: '600px'});
-		$("#wrapper").css({width:'600px',margin:'0 auto', background:'#FFFFFF'});
-	}else{
-		$("#wrapper").css({width:'600px',margin:'0 auto -110px', background:'#F0EFF4'});
-	}
-	$('#fixed-footer').css({width:'600px', left:0, right:0, margin:'0 auto'});
-	if($('#ycf-sign-popup').length>0){
-		var left = (window.innerWidth-600)/2;
-		$('#ycf-sign-popup').css({left:left+'px', width:'600px'});
-	}
-}
-</script>
+        // 科目列表和满分
+        const subjects = ['语文', '数学', '英语', '物理', '化学', '生物', '政治', '历史', '地理'];
+        const maxScores = {
+            '语文': 150, '数学': 150, '英语': 150,
+            '物理': 100, '化学': 100, '生物': 100,
+            '政治': 100, '历史': 100, '地理': 100
+        };
+
+        // 高分阈值和高亮颜色 (主要用于单人分数图)
+        const scoreThreshold150 = 130; // 满分150的科目阈值
+        const scoreThreshold100 = 90;  // 满分100的科目阈值
+        const highlightColor = 'rgba(255, 255, 0, 0.8)'; // 黄色高亮背景
+        const highlightBorderColor = 'rgba(255, 255, 0, 1)';// 黄色高亮边框/点
+
+         // 用于对比图表的数据集颜色循环
+        const comparisonColors = [
+            'rgba(0, 191, 255, 0.8)',    // Primary - Cyan
+            'rgba(147, 112, 219, 0.8)',  // Secondary 1 - MediumPurple
+            'rgba(255, 99, 132, 0.8)',   // Secondary 2 - Red
+            'rgba(54, 162, 235, 0.8)',   // Secondary 3 - Blue
+            'rgba(75, 192, 192, 0.8)',   // Secondary 4 - Teal
+            'rgba(153, 102, 255, 0.8)',  // Secondary 5 - Purple
+            'rgba(255, 159, 64, 0.8)'    // Secondary 6 - Orange
+            // Add more colors if needed
+        ];
+         const comparisonBorderColors = [
+            'rgba(0, 191, 255, 1)',
+            'rgba(147, 112, 219, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ];
+
+
+        // DOM 元素引用
+        const addStudentBtn = document.getElementById('add-student-btn');
+        const studentInputFormsContainer = document.getElementById('student-input-forms');
+        const importedStudentsDiv = document.getElementById('imported-students');
+        const studentSelect = document.getElementById('student-select');
+        const chartTypeSelect = document.getElementById('chart-type-select');
+        const gradeChartCanvas = document.getElementById('grade-chart');
+        const primaryStudentSelect = document.getElementById('primary-student-select');
+        const secondaryStudentSelect = document.getElementById('secondary-student-select');
+        const compareBtn = document.getElementById('compare-btn');
+        const comparisonResultsDiv = document.getElementById('comparison-results');
+        const comparisonChartCanvas = document.getElementById('comparison-chart'); // 新增对比图表canvas
+        const comparisonChartTypeSelect = document.getElementById('comparison-chart-type-select'); // 新增对比图表类型选择
+
+        // 存储最后一次对比选中的学生，用于切换对比图表类型时重绘
+        let lastComparedPrimaryStudentName = null;
+        let lastComparedSecondaryStudentNames = [];
+
+
+        // 解析单个学生数据块的函数 (更灵活)
+        function parseStudentBlock(textBlock) {
+            const student = {};
+            const lines = textBlock.split('\n').map(line => line.trim()).filter(line => line !== ''); // 分割行并去除空行和首尾空白
+
+            if (lines.length === 0) return null; // 空块
+
+            lines.forEach(line => {
+                // 使用正则表达式匹配第一个非空白字符序列 (key) 后面的空白字符序列和剩余部分 (value)
+                const match = line.match(/^(\S+)\s+(.*)$/);
+                if (match && match[1] && match[2] !== undefined) {
+                    const key = match[1];
+                    const value = match[2].trim();
+                    student[key] = value;
+                }
+                 // else { console.warn(`无法解析行: "${line}"`); } // 可选：调试未解析的行
+            });
+
+            // 验证是否至少有姓名
+            if (!student.姓名) {
+                return null; // 没有姓名的无效学生数据
+            }
+
+             // 将分数和名次转换为数字
+             const scoreKeys = subjects.map(s => s).concat(['总分']);
+             const rankKeys = subjects.map(s => `${s}名次`).concat(['总分名次']);
+
+             scoreKeys.forEach(key => {
+                 if (student[key] !== undefined && student[key] !== '') {
+                      const num = parseFloat(student[key]);
+                      if (!isNaN(num)) {
+                           student[key] = num;
+                       } else {
+                           console.warn(`学生 ${student.姓名}: 分数键 "${key}" 的值 "${student[key]}" 不是有效数字.`);
+                           student[key] = NaN; // 标记为无效数字
+                       }
+                 } else {
+                     student[key] = NaN; // 缺失的分数设置为 NaN
+                 }
+             });
+
+             rankKeys.forEach(key => {
+                 if (student[key] !== undefined && student[key] !== '') {
+                      // 使用 parseInt 处理排名
+                      const num = parseInt(student[key], 10); // 明确指定基数10
+                      // 额外检查排名是否大于0，排名通常从1开始
+                      if (!isNaN(num) && num > 0) {
+                           student[key] = num;
+                       } else {
+                           console.warn(`学生 ${student.姓名}: 名次键 "${key}" 的值 "${student[key]}" 不是有效的正整数 (>0).`);
+                           student[key] = NaN; // 标记为无效数字
+                       }
+                 } else {
+                     student[key] = NaN; // 缺失的排名设置为 NaN
+                 }
+             });
+
+
+            return student;
+        }
+
+        // 添加学生输入表单到界面
+        function addStudentInputForm() {
+            studentFormCounter++;
+            const formDiv = document.createElement('div');
+            formDiv.classList.add('student-input-card');
+            formDiv.dataset.formId = studentFormCounter; // 用于唯一标识
+
+            formDiv.innerHTML = `
+                <h3>学生 ${studentFormCounter} 成绩输入</h3>
+                <textarea placeholder='请粘贴学生 ${studentFormCounter} 的成绩数据，格式如：
+姓名 张三
+总分 700
+总分名次 10
+语文 130
+语文名次 5
+数学 140
+数学名次 3
+英语 135
+英语名次 7
+物理 95
+物理名次 8
+化学 90
+化学名次 12
+生物 85
+生物名次 15
+政治 88
+政治名次 10
+历史 92
+历史名次 6
+地理 80
+地理名次 18
+
+键和值之间用空格或Tab分隔。只需包含你有的数据项即可。
+'></textarea>
+                <div class="button-group">
+                    <button class="import-single-student-btn">导入此学生</button>
+                    <button class="remove-btn">移除此框</button>
+                </div>
+            `;
+
+            studentInputFormsContainer.appendChild(formDiv);
+
+            // 获取新创建的按钮并添加事件监听器
+            const importButton = formDiv.querySelector('.import-single-student-btn');
+            const removeButton = formDiv.querySelector('.remove-btn');
+            const textarea = formDiv.querySelector('textarea');
+
+            importButton.addEventListener('click', () => {
+                const textBlock = textarea.value;
+                const student = parseStudentBlock(textBlock);
+
+                if (student && student.姓名) {
+                     // 检查是否已存在同名学生，如果存在则替换
+                    const existingIndex = studentsData.findIndex(s => s.姓名 === student.姓名);
+                    if (existingIndex > -1) {
+                        studentsData[existingIndex] = student;
+                        console.log(`学生 ${student.姓名} 数据已更新.`);
+                        // 更新界面的提示
+                        formDiv.style.borderColor = 'rgba(0, 255, 0, 0.5)'; // 绿色边框表示更新
+                        importButton.textContent = '已更新';
+                    } else {
+                        studentsData.push(student);
+                        console.log(`学生 ${student.姓名} 数据已导入.`);
+                         // 更新界面的提示
+                        formDiv.style.borderColor = 'rgba(0, 191, 255, 0.5)'; // 蓝色边框表示导入
+                        importButton.textContent = '已导入';
+                    }
+
+                    updateStudentSelects();
+                     // 如果导入的是第一个学生，或者当前没有选中学生，则默认选中他
+                    if (studentsData.length === 1 || !studentSelect.value) {
+                        studentSelect.value = student.姓名;
+                         // 自动渲染图表（默认雷达图）
+                         renderSingleStudentChart(student.姓名, chartTypeSelect.value || 'radar');
+                         primaryStudentSelect.value = student.姓名; // 默认主要对比人
+                    } else {
+                         // 如果已经有单人图表显示，可能需要手动切换学生查看
+                         // 或者如果当前显示的正是这个学生，刷新图表
+                         if (studentSelect.value === student.姓名 && currentSingleStudentChart) {
+                             renderSingleStudentChart(student.姓名, chartTypeSelect.value);
+                         }
+                    }
+
+
+                } else {
+                    alert(`未能解析学生数据，请检查格式和是否包含有效的“姓名”及数据。`);
+                    formDiv.style.borderColor = 'rgba(255, 99, 132, 0.5)'; // 红色边框表示失败
+                    importButton.textContent = '导入失败';
+                     // 清空无效的输入，避免重复尝试导入错误数据
+                     // textarea.value = ''; // 导入失败时不自动清空，方便用户修改
+                }
+            });
+
+             removeButton.addEventListener('click', () => {
+                 // 从 studentsData 中移除对应的学生 (如果已导入的话)
+                 // 尝试解析当前表单中的姓名要移除
+                 const studentNameInForm = parseStudentBlock(textarea.value)?.姓名;
+                 if (studentNameInForm) {
+                     const initialLength = studentsData.length;
+                     studentsData = studentsData.filter(s => s.姓名 !== studentNameInForm);
+                     if (studentsData.length < initialLength) {
+                          console.log(`学生 ${studentNameInForm} 已从数据中移除.`);
+                          updateStudentSelects(); // 数据变化，更新选择框
+                          // 如果移除的是当前单人图表显示的学生或主要对比人，需要重置选择
+                          if (studentSelect.value === studentNameInForm) {
+                              studentSelect.value = studentsData.length > 0 ? studentsData[0].姓名 : '';
+                              if (studentSelect.value) {
+                                   renderSingleStudentChart(studentSelect.value, chartTypeSelect.value || 'radar'); // 渲染第一个学生或默认图表
+                              } else {
+                                   if(currentSingleStudentChart) currentSingleStudentChart.destroy();
+                                   currentSingleStudentChart = null;
+                                    const ctx = gradeChartCanvas.getContext('2d');
+                                     ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height); // 清空画布
+                              }
+                          }
+                           if (primaryStudentSelect.value === studentNameInForm) {
+                               primaryStudentSelect.value = studentsData.length > 0 ? studentsData[0].姓名 : '';
+                           }
+                           // 移除次要对比人中的该学生
+                           const selectedSecondaryOptions = Array.from(secondaryStudentSelect.selectedOptions).map(option => option.value);
+                            if(selectedSecondaryOptions.includes(studentNameInForm)) {
+                                // Remove it from selected list if present
+                                Array.from(secondaryStudentSelect.options).forEach(option => {
+                                     if (option.value === studentNameInForm) {
+                                          option.selected = false;
+                                     }
+                                });
+                                // Re-render comparison if the removed student was selected
+                                 if (lastComparedPrimaryStudentName && lastComparedSecondaryStudentNames.includes(studentNameInForm)) {
+                                      // Re-run comparison with updated selection
+                                     compareBtn.click(); // Simulate click to re-compare
+                                 }
+                            }
+
+                           // 如果移除的学生是当前对比的主要或次要学生，清空对比图表和结果
+                           if (lastComparedPrimaryStudentName === studentNameInForm || lastComparedSecondaryStudentNames.includes(studentNameInForm)) {
+                                if(currentComparisonChart) currentComparisonChart.destroy();
+                                currentComparisonChart = null;
+                                 const compCtx = comparisonChartCanvas.getContext('2d');
+                                 compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height); // 清空画布
+                                comparisonResultsDiv.innerHTML = ''; // 清空文本对比结果
+                                lastComparedPrimaryStudentName = null;
+                                lastComparedSecondaryStudentNames = [];
+                           }
+                     }
+                 } // 如果表单数据无效，无需从 studentsData 中移除任何东西
+
+                 // 移除界面上的表单
+                 formDiv.remove();
+             });
+        }
+
+
+        // 更新学生选择下拉列表
+        function updateStudentSelects() {
+            studentSelect.innerHTML = '';
+            primaryStudentSelect.innerHTML = '';
+            secondaryStudentSelect.innerHTML = '';
+
+            if (studentsData.length === 0) {
+                importedStudentsDiv.textContent = '未导入任何学生数据。';
+                // 清空所有图表和对比结果
+                if(currentSingleStudentChart) currentSingleStudentChart.destroy();
+                currentSingleStudentChart = null;
+                 const ctx = gradeChartCanvas.getContext('2d');
+                 ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height); // 清空画布
+
+                 if(currentComparisonChart) currentComparisonChart.destroy();
+                 currentComparisonChart = null;
+                  const compCtx = comparisonChartCanvas.getContext('2d');
+                 compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height); // 清空画布
+
+                comparisonResultsDiv.innerHTML = '';
+                lastComparedPrimaryStudentName = null;
+                lastComparedSecondaryStudentNames = [];
+                return;
+            }
+
+            studentsData.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.姓名;
+                option.textContent = student.姓名;
+                studentSelect.appendChild(option.cloneNode(true)); // 克隆用于单人图表选择
+                primaryStudentSelect.appendChild(option.cloneNode(true)); // 克隆用于主要对比人
+                secondaryStudentSelect.appendChild(option.cloneNode(true)); // 克隆用于次要对比人
+            });
+
+             importedStudentsDiv.textContent = `已导入以下学生数据：${studentsData.map(s => s.姓名).join(', ')}`;
+
+             // 尝试恢复之前的单人图表选择
+             let selectedStudentStillExists = studentsData.some(s => s.姓名 === studentSelect.value);
+             if (!selectedStudentStillExists && studentsData.length > 0) {
+                  studentSelect.value = studentsData[0].姓名;
+             } else if (studentsData.length > 0 && studentSelect.value) {
+                 // 保持当前选择
+             } else if (studentsData.length > 0) {
+                 studentSelect.value = studentsData[0].姓名; // 没有选中学生，默认第一个
+             }
+
+
+             // 确保至少渲染一个单人图表，如果学生列表中有学生且选择了学生
+             if (studentsData.length > 0 && studentSelect.value) {
+                  renderSingleStudentChart(studentSelect.value, chartTypeSelect.value || 'radar');
+             } else {
+                 // 没有学生或没有选中学生，销毁单人图表
+                 if(currentSingleStudentChart) currentSingleStudentChart.destroy();
+                 currentSingleStudentChart = null;
+                  const ctx = gradeChartCanvas.getContext('2d');
+                  ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height); // 清空画布
+             }
+
+             // 尝试恢复主要对比人选择
+             let primarySelectedStudentStillExists = studentsData.some(s => s.姓名 === primaryStudentSelect.value);
+              if (!primarySelectedStudentStillExists && studentsData.length > 0) {
+                   primaryStudentSelect.value = studentsData[0].姓名; // 默认选中第一个
+              } else if (studentsData.length > 0 && primaryStudentSelect.value) {
+                  // 保持当前选择
+              } else if (studentsData.length > 0) {
+                  primaryStudentSelect.value = studentsData[0].姓名; // 没有选中，默认第一个
+              }
+
+             // 次要对比人多选框不需要恢复选中状态，用户需要重新选择
+
+             // 如果之前有对比，尝试重新绘制对比图表（可能学生被移除了）
+             if (lastComparedPrimaryStudentName) {
+                 // 检查主要对比人是否还在
+                 const primaryExists = studentsData.some(s => s.姓名 === lastComparedPrimaryStudentName);
+                 // 检查所有次要对比人是否还在
+                 const allSecondariesExist = lastComparedSecondaryStudentNames.every(name => studentsData.some(s => s.姓名 === name));
+
+                 if (primaryExists && lastComparedSecondaryStudentNames.length > 0 && allSecondariesExist) {
+                      // 如果所有参与对比的学生都还在，重新绘制对比图表
+                       renderComparisonChart(lastComparedPrimaryStudentName, lastComparedSecondaryStudentNames, comparisonChartTypeSelect.value);
+                       // 重新生成文本对比结果
+                       const primary = studentsData.find(s => s.姓名 === lastComparedPrimaryStudentName);
+                       const secondaries = studentsData.filter(s => lastComparedSecondaryStudentNames.includes(s.姓名));
+                       generateComparisonTextResults(primary, secondaries);
+                 } else {
+                     // 如果有学生被移除，清空对比图表和结果
+                      if(currentComparisonChart) currentComparisonChart.destroy();
+                      currentComparisonChart = null;
+                       const compCtx = comparisonChartCanvas.getContext('2d');
+                       compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height); // 清空画布
+                      comparisonResultsDiv.innerHTML = ''; // 清空文本对比结果
+                      lastComparedPrimaryStudentName = null;
+                      lastComparedSecondaryStudentNames = [];
+                 }
+             }
+
+        }
+
+        // 渲染单人图表函数 (原 renderChart)
+        function renderSingleStudentChart(studentName, chartType) {
+            const student = studentsData.find(s => s.姓名 === studentName);
+            if (!student) {
+                console.error(`未找到学生：${studentName}`);
+                if(currentSingleStudentChart) {
+                     currentSingleStudentChart.destroy();
+                     currentSingleStudentChart = null;
+                }
+                 const ctx = gradeChartCanvas.getContext('2d');
+                 ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height); // 清空画布
+                return;
+            }
+
+            if (currentSingleStudentChart) {
+                currentSingleStudentChart.destroy(); // 销毁之前的图表实例
+            }
+
+            const ctx = gradeChartCanvas.getContext('2d');
+
+            let chartConfig = {};
+            let labels = subjects;
+            let data = [];
+            let chartLabel = '';
+            let chartTypeForChartJs = ''; // 实际传给Chart.js的type
+            let backgroundColors = [];
+            let borderColors = [];
+            let pointBackgroundColors = [];
+            let pointBorderColors = [];
+            let defaultBackgroundColor = 'rgba(0, 191, 255, 0.6)'; // 分数默认背景
+            let defaultBorderColor = 'rgba(0, 191, 255, 1)';     // 分数默认边框
+            let defaultRankBackgroundColor = 'rgba(255, 99, 132, 0.6)'; // 名次默认背景
+            let defaultRankBorderColor = 'rgba(255, 99, 132, 1)';     // 名次默认边框
+
+
+            const isScoreChart = chartType.includes('score') || chartType === 'radar';
+
+            if (isScoreChart) {
+                // 分数使用 0 填充缺失值以便雷达图和柱状图连线或显示
+                data = subjects.map(subj => student[subj] !== undefined && !isNaN(student[subj]) ? student[subj] : 0);
+                chartLabel = `${student.姓名} - 成绩分数`;
+
+                // 根据分数阈值设置颜色
+                data.forEach((score, index) => {
+                    const subject = subjects[index];
+                    const max = maxScores[subject];
+                    // 检查 max 是否存在，如果不存在给个默认值，避免计算错误
+                    const effectiveMax = max !== undefined && !isNaN(max) ? max : 100;
+                    const threshold = (effectiveMax === 150) ? scoreThreshold150 : scoreThreshold100;
+
+                    if (score >= threshold && score <= effectiveMax) { // 确保分数没有超过满分太多
+                        backgroundColors.push(highlightColor);
+                        borderColors.push(highlightBorderColor);
+                        pointBackgroundColors.push(highlightBorderColor); // 点颜色也高亮
+                        pointBorderColors.push('#fff');
+                    } else {
+                        backgroundColors.push(defaultBackgroundColor);
+                        borderColors.push(defaultBorderColor);
+                         pointBackgroundColors.push('#00bfff'); // 默认点颜色
+                         pointBorderColors.push('#fff');
+                    }
+                });
+
+
+                if (chartType === 'radar') {
+                    chartTypeForChartJs = 'radar';
+                    // 雷达图的背景和边框颜色应该是一个值，而不是数组，因为是整个区域
+                    // 但 Chart.js 在雷达图数据集里支持backgroundColor和borderColor是数组
+                    // 数组长度必须等于数据点数量。这里的实现是OK的。
+                } else if (chartType === 'bar-score') {
+                    chartTypeForChartJs = 'bar';
+                } else if (chartType === 'line-score') {
+                     chartTypeForChartJs = 'line';
+                }
+            } else { // 排名图
+                // 排名使用 NaN 填充缺失值，Chart.js 不绘制 NaN 点
+                data = subjects.map(subj => student[`${subj}名次`] !== undefined && !isNaN(student[`${subj}名次`]) ? student[`${subj}名次`] : NaN);
+                chartLabel = `${student.姓名} - 成绩名次`;
+
+                // 排名图使用默认颜色
+                backgroundColors = data.map(() => defaultRankBackgroundColor);
+                borderColors = data.map(() => defaultRankBorderColor);
+                pointBackgroundColors = data.map(() => '#ff6384');
+                pointBorderColors = data.map(() => '#fff');
+
+                 // 对于名次图，数值越小越好，y轴反转
+                 chartConfig.options = {
+                     scales: {
+                         y: {
+                             reverse: true, // 名次越小越靠上
+                             beginAtZero: false, // 排名不从0开始
+                             suggestedMin: 1,   // 建议从1开始
+                             title: {
+                                 display: true,
+                                 text: '名次 (越小越好)',
+                                 color: '#b0b0b0'
+                             },
+                              ticks: {
+                                 color: '#e0e0e0' // Y轴刻度文字颜色
+                             },
+                             grid: {
+                                  color: 'rgba(255, 255, 255, 0.1)' // 网格线颜色
+                             }
+                         },
+                         x: {
+                             ticks: {
+                                 color: '#e0e0e0' // X轴刻度文字颜色
+                             },
+                              grid: {
+                                  color: 'rgba(255, 255, 255, 0.1)' // 网格线颜色
+                             }
+                         }
+                     }
+                 };
+
+                 if (chartType === 'bar-rank') {
+                    chartTypeForChartJs = 'bar';
+                } else if (chartType === 'line-rank') {
+                     chartTypeForChartJs = 'line';
+                }
+            }
+
+
+            chartConfig = {
+                type: chartTypeForChartJs,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: chartLabel,
+                        data: data,
+                        backgroundColor: backgroundColors, // 使用颜色数组
+                        borderColor: borderColors,       // 使用颜色数组
+                        borderWidth: 2,
+                        fill: isScoreChart && chartTypeForChartJs === 'radar' ? true : false, // 雷达图填充
+                         pointBackgroundColor: pointBackgroundColors, // 使用颜色数组
+                         pointBorderColor: pointBorderColors,
+                         pointHoverBackgroundColor: '#fff',
+                         pointHoverBorderColor: isScoreChart ? borderColors : pointBorderColors, // 悬停边框颜色
+                         segment: { // 折线图点之间的颜色，可以根据阈值改变颜色
+                             borderColor: ctx => {
+                                 // 仅对分数折线图应用高亮连线颜色
+                                 if (!isScoreChart || chartTypeForChartJs !== 'line' || isNaN(data[ctx.p1DataIndex]) || isNaN(data[ctx.p0DataIndex])) return defaultBorderColor; // 排名图或NaN数据不特殊处理连线颜色
+
+                                 const score1 = data[ctx.p1DataIndex];
+                                 const score2 = data[ctx.p0DataIndex]; // Previous point index is p0DataIndex
+                                 const subject1 = subjects[ctx.p1DataIndex];
+                                 const subject2 = subjects[ctx.p0DataIndex];
+                                 const max1 = maxScores[subject1] !== undefined && !isNaN(maxScores[subject1]) ? maxScores[subject1] : 100; // Default if subject not found
+                                 const max2 = maxScores[subject2] !== undefined && !isNaN(maxScores[subject2]) ? maxScores[subject2] : 100;
+                                 const threshold1 = (max1 === 150) ? scoreThreshold150 : scoreThreshold100;
+                                 const threshold2 = (max2 === 150) ? scoreThreshold150 : scoreThreshold100;
+
+                                 // 如果当前点或前一个点达到阈值，则连接线高亮
+                                 if ((score1 >= threshold1 && score1 <= max1) || (score2 >= threshold2 && score2 <= max2)) {
+                                     return highlightBorderColor;
+                                 }
+                                  return defaultBorderColor;
+                             }
+                         }
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // 允许容器控制尺寸
+                     plugins: {
+                        legend: {
+                            display: true, // 确保图例显示
+                            labels: {
+                                color: '#e0e0e0', // 图例文字颜色
+                                usePointStyle: true, // 在图例中使用点的样式 (对折线图/雷达图有影响)
+                            },
+                            // onClick: Chart.defaults.plugins.legend.onClick // 默认点击行为就是隐藏/显示数据集，不需要额外写
+                        },
+                        title: {
+                            display: true,
+                            text: `${student.姓名} ${isScoreChart ? '成绩分数' : '成绩名次'} 图`,
+                            color: '#00f7ff', // 标题颜色
+                            font: {
+                                 size: 18
+                            }
+                        },
+                         tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    // Handle NaN data for tooltip
+                                    if (isNaN(context.raw)) {
+                                         label += '无数据';
+                                    } else {
+                                        label += context.raw;
+                                        if (!isScoreChart) {
+                                             // 单人排名图tooltip不显示总人数，对比图表再显示
+                                            label += ` 名`;
+                                        } else {
+                                            // 在分数图的tooltip中提示是否达到高分阈值
+                                            const subject = subjects[context.dataIndex];
+                                            const max = maxScores[subject] || 100; // Default if not found
+                                            const threshold = (max === 150) ? scoreThreshold150 : scoreThreshold100;
+                                            if (context.raw >= threshold && context.raw <= max) {
+                                                label += ` (高于阈值)`;
+                                            }
+                                        }
+                                    }
+                                    return label;
+                                }
+                            }
+                         }
+                     },
+                     scales: chartConfig.options ? chartConfig.options.scales : { // 合并或使用默认scales
+                         r: isScoreChart && chartTypeForChartJs === 'radar' ? { // 雷达图特定配置
+                             angleLines: {
+                                 color: 'rgba(255, 255, 255, 0.2)' // 角度线颜色
+                             },
+                             grid: {
+                                 color: 'rgba(255, 255, 255, 0.2)' // 网格线颜色
+                             },
+                             pointLabels: {
+                                 color: '#e0e0e0', // 极点标签颜色 (科目名)
+                                 font: {
+                                     size: window.innerWidth > 768 ? 12 : 10 // 响应式字体大小
+                                 }
+                             },
+                             ticks: {
+                                  display: true, // 显示刻度数值
+                                  color: '#b0b0b0', // 刻度文字颜色
+                                  backdropColor: 'rgba(26, 26, 46, 0.6)', // 刻度背景色
+                                  showLabelBackdrop: true // 显示刻度背景
+                             },
+                             suggestedMin: 0,
+                             suggestedMax: 150 // 简单的最大值设置，雷达图每个轴满分不同比较复杂，这里用一个较高的统一值
+                         } : undefined,
+                         y: !isScoreChart ? chartConfig.options.scales.y : { // 非排名图的Y轴配置
+                              beginAtZero: true,
+                               title: {
+                                 display: true,
+                                 text: '分数',
+                                 color: '#b0b0b0'
+                                },
+                               ticks: {
+                                   color: '#e0e0e0'
+                               },
+                               grid: {
+                                   color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                         },
+                         x: { // X轴配置
+                              ticks: {
+                                 color: '#e0e0e0'
+                             },
+                              grid: {
+                                  color: 'rgba(255, 255, 255, 0.1)'
+                             }
+                         }
+                     }
+                }
+            };
+
+            // 确保 Chart.js 注册了所需的控制器和元素
+            // 如果使用了插件，也需要在这里注册
+            // Chart.register(ChartDataLabels); // 如果使用datalabels插件则需要注册
+
+            try {
+                 currentSingleStudentChart = new Chart(ctx, chartConfig);
+            } catch (error) {
+                 console.error("绘制单人图表时发生错误:", error);
+                 // 销毁可能部分创建的图表实例
+                 if(currentSingleStudentChart) {
+                     currentSingleStudentChart.destroy();
+                     currentSingleStudentChart = null;
+                 }
+                 // 清空画布并显示错误提示
+                 ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height);
+                 ctx.fillStyle = '#ff6384'; // 错误文字颜色
+                 ctx.font = '16px Arial';
+                 ctx.textAlign = 'center';
+                 ctx.fillText('单人图表绘制失败，请检查数据。', gradeChartCanvas.width / 2, gradeChartCanvas.height / 2);
+            }
+        }
+
+
+        // 生成文本对比结果的函数 (从 compareStudents 中提取)
+         function generateComparisonTextResults(primaryStudent, secondaryStudents) {
+             let resultsHtml = '';
+
+            secondaryStudents.forEach(secondaryStudent => {
+                resultsHtml += `<h3>${primaryStudent.姓名} vs ${secondaryStudent.姓名}</h3>`;
+
+                // 对比总分和总排名
+                const totalScorePrimary = primaryStudent['总分'];
+                const totalScoreSecondary = secondaryStudent['总分'];
+                const totalRankPrimary = primaryStudent['总分名次'];
+                const totalRankSecondary = secondaryStudent['总分名次'];
+
+                // 总分对比
+                if (!isNaN(totalScorePrimary) && !isNaN(totalScoreSecondary)) {
+                    let totalScoreDiff = totalScorePrimary - totalScoreSecondary;
+                    let totalScorePercentage = totalScoreSecondary !== 0 && !isNaN(totalScoreSecondary) ? (totalScoreDiff / totalScoreSecondary) * 100 : NaN;
+                    let scoreLeadLag = totalScoreDiff >= 0 ? '领先' : '落后';
+                    resultsHtml += `<p>总分: ${primaryStudent.姓名} ${scoreLeadLag} ${secondaryStudent.姓名} ${Math.abs(totalScoreDiff).toFixed(1)} 分`;
+                    if (!isNaN(totalScorePercentage) && isFinite(totalScorePercentage)) { // Check for Infinity
+                         resultsHtml += ` (${Math.abs(totalScorePercentage).toFixed(1)}%)`;
+                    } else if (totalScoreSecondary === 0 && totalScorePrimary > 0) {
+                         resultsHtml += ` (次要学生总分为0)`;
+                    } else if (isNaN(totalScoreSecondary)) {
+                         resultsHtml += ` (次要学生总分数据无效)`;
+                    }
+                    resultsHtml += `</p>`;
+                } else {
+                    resultsHtml += `<p>总分: 无法对比 (数据无效)</p>`;
+                }
+
+
+                 // 总排名对比 (排名越小越好)
+                if (!isNaN(totalRankPrimary) && !isNaN(totalRankSecondary)) {
+                    let totalRankDiff = totalRankSecondary - totalRankPrimary; // 次要排名 - 主要排名 (正数表示主要排名靠前)
+                    // 只有当次要排名大于0时才计算百分比，因为排名从1开始
+                    let totalRankPercentage = totalRankSecondary > 0 && !isNaN(totalRankSecondary) ? (totalRankDiff / totalRankSecondary) * 100 : NaN;
+                    let rankLeadLag = totalRankDiff >= 0 ? '领先' : '落后';
+                    resultsHtml += `<p>总排名 (${totalStudents}人): ${primaryStudent.姓名} ${rankLeadLag} ${secondaryStudent.姓名} ${Math.abs(totalRankDiff)} 名`;
+                    if (!isNaN(totalRankPercentage) && isFinite(totalRankPercentage)) {
+                         resultsHtml += ` (${Math.abs(totalRankPercentage).toFixed(1)}%)`;
+                    } else if (totalRankSecondary <= 1 && !isNaN(totalRankSecondary)) {
+                         resultsHtml += ` (无法计算百分比，次要排名为${totalRankSecondary})`;
+                    } else if (isNaN(totalRankSecondary)) {
+                         resultsHtml += ` (次要学生总排名数据无效)`;
+                    }
+                    resultsHtml += `</p>`;
+                 } else {
+                    resultsHtml += `<p>总排名 (${totalStudents}人): 无法对比 (数据无效)</p>`;
+                 }
+
+
+                // 对比各科成绩和排名
+                subjects.forEach(subj => {
+                    const scorePrimary = primaryStudent[subj];
+                    const scoreSecondary = secondaryStudent[subj];
+                    const rankPrimary = primaryStudent[`${subj}名次`];
+                    const rankSecondary = secondaryStudent[`${subj}名次`];
+
+                    // 科目分数对比
+                    if (!isNaN(scorePrimary) && !isNaN(scoreSecondary)) {
+                        let scoreDiff = scorePrimary - scoreSecondary;
+                        let scorePercentage = scoreSecondary !== 0 && !isNaN(scoreSecondary) ? (scoreDiff / scoreSecondary) * 100 : NaN;
+                         let scoreLeadLag = scoreDiff >= 0 ? '领先' : '落后';
+                        resultsHtml += `<p>${subj}分数: ${primaryStudent.姓名} ${scoreLeadLag} ${secondaryStudent.姓名} ${Math.abs(scoreDiff).toFixed(1)} 分`;
+                        if (!isNaN(scorePercentage) && isFinite(scorePercentage)) {
+                            resultsHtml += ` (${Math.abs(scorePercentage).toFixed(1)}%)`;
+                        } else if (scoreSecondary === 0 && scorePrimary > 0) {
+                            resultsHtml += ` (次要学生分数为0)`;
+                        } else if (isNaN(scoreSecondary)) {
+                            resultsHtml += ` (次要学生分数数据无效)`;
+                        }
+                         resultsHtml += `</p>`;
+                     } else {
+                        resultsHtml += `<p>${subj}分数: 无法对比 (数据无效)</p>`;
+                     }
+
+                    // 科目排名对比 (排名越小越好)
+                    if (!isNaN(rankPrimary) && !isNaN(rankSecondary)) {
+                        let rankDiff = rankSecondary - rankPrimary; // 次要排名 - 主要排名 (正数表示主要排名靠前)
+                         // 只有当次要排名大于0时才计算百分比
+                        let rankPercentage = rankSecondary > 0 && !isNaN(rankSecondary) ? (rankDiff / rankSecondary) * 100 : NaN;
+                        let rankLeadLag = rankDiff >= 0 ? '领先' : '落后';
+                        resultsHtml += `<p>${subj}名次 (${totalStudents}人): ${primaryStudent.姓名} ${rankLeadLag} ${secondaryStudent.姓名} ${Math.abs(rankDiff)} 名`;
+                         if (!isNaN(rankPercentage) && isFinite(rankPercentage)) {
+                            resultsHtml += ` (${Math.abs(rankPercentage).toFixed(1)}%)`;
+                        } else if (rankSecondary <= 1 && !isNaN(rankSecondary)) {
+                             resultsHtml += ` (无法计算百分比，次要排名为${rankSecondary})`;
+                        } else if (isNaN(rankSecondary)) {
+                             resultsHtml += ` (次要学生名次数据无效)`;
+                        }
+                        resultsHtml += `</p>`;
+                    } else {
+                        resultsHtml += `<p>${subj}名次 (${totalStudents}人): 无法对比 (数据无效)</p>`;
+                    }
+                });
+            });
+
+            comparisonResultsDiv.innerHTML = resultsHtml;
+         }
+
+
+        // 渲染对比图表函数
+        function renderComparisonChart(primaryStudentName, secondaryStudentNames, chartType) {
+            const primaryStudent = studentsData.find(s => s.姓名 === primaryStudentName);
+            const secondaryStudents = studentsData.filter(s => secondaryStudentNames.includes(s.姓名));
+
+            // 至少需要一个主要学生和一个次要学生才能绘制对比图
+            if (!primaryStudent || secondaryStudents.length === 0) {
+                if(currentComparisonChart) {
+                     currentComparisonChart.destroy();
+                     currentComparisonChart = null;
+                }
+                 const compCtx = comparisonChartCanvas.getContext('2d');
+                 compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height); // 清空画布
+                 // 可选：显示提示信息
+                 // compCtx.fillStyle = '#b0b0b0'; compCtx.font = '14px Arial'; compCtx.textAlign = 'center'; compCtx.fillText('选择学生进行对比图表展示', comparisonChartCanvas.width / 2, comparisonChartCanvas.height / 2);
+                return;
+            }
+
+            if (currentComparisonChart) {
+                currentComparisonChart.destroy(); // 销毁之前的图表实例
+            }
+
+            const compCtx = comparisonChartCanvas.getContext('2d');
+
+            const labels = subjects;
+            const datasets = [];
+
+            // 添加主要学生的得分数据集
+             const primaryScoreData = subjects.map(subj => primaryStudent[subj] !== undefined && !isNaN(primaryStudent[subj]) ? primaryStudent[subj] : 0);
+            datasets.push({
+                label: primaryStudent.姓名,
+                data: primaryScoreData,
+                backgroundColor: comparisonColors[0],
+                borderColor: comparisonBorderColors[0],
+                borderWidth: 2,
+                fill: chartType === 'radar',
+                pointBackgroundColor: comparisonBorderColors[0],
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: comparisonBorderColors[0],
+                segment: { // 折线图连线颜色
+                    borderColor: comparisonBorderColors[0] // 主颜色
+                }
+            });
+
+            // 添加次要学生的得分数据集
+            secondaryStudents.forEach((student, index) => {
+                 const secondaryScoreData = subjects.map(subj => student[subj] !== undefined && !isNaN(student[subj]) ? student[subj] : 0);
+                datasets.push({
+                    label: student.姓名,
+                    data: secondaryScoreData,
+                     // 颜色索引从1开始，避开主要学生的颜色
+                    backgroundColor: comparisonColors[(index + 1) % comparisonColors.length],
+                    borderColor: comparisonBorderColors[(index + 1) % comparisonBorderColors.length],
+                    borderWidth: 2,
+                    fill: chartType === 'radar',
+                    pointBackgroundColor: comparisonBorderColors[(index + 1) % comparisonBorderColors.length],
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: comparisonBorderColors[(index + 1) % comparisonBorderColors.length],
+                     segment: { // 折线图连线颜色
+                        borderColor: comparisonBorderColors[(index + 1) % comparisonBorderColors.length] // 次颜色
+                    }
+                });
+            });
+
+            const chartConfig = {
+                type: chartType,
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#e0e0e0',
+                                usePointStyle: true,
+                            },
+                            // onClick: default is hide/show dataset, which is what we want
+                        },
+                        title: {
+                            display: true,
+                            text: '成绩分数对比图', // 对比图标题
+                            color: '#00f7ff',
+                            font: { size: 18 }
+                        },
+                         tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    // Handle NaN data for tooltip (though we filled with 0 for scores)
+                                     if (isNaN(context.raw)) {
+                                         label += '无数据'; // Should not happen with 0 fill, but safe check
+                                     } else {
+                                         label += context.raw;
+                                         label += ' 分'; // Add unit
+                                     }
+                                    return label;
+                                }
+                            }
+                         }
+                    },
+                    scales: {
+                        r: chartType === 'radar' ? { // 雷达图特定配置
+                            angleLines: { color: 'rgba(255, 255, 255, 0.2)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                            pointLabels: {
+                                color: '#e0e0e0',
+                                font: { size: window.innerWidth > 768 ? 12 : 10 }
+                            },
+                             ticks: {
+                                  display: true,
+                                  color: '#b0b0b0',
+                                  backdropColor: 'rgba(26, 26, 46, 0.6)',
+                                  showLabelBackdrop: true
+                             },
+                            suggestedMin: 0,
+                            suggestedMax: 150 // 分数对比，最大150
+                        } : undefined,
+                        y: chartType !== 'radar' ? { // 非雷达图的Y轴配置
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '分数',
+                                color: '#b0b0b0'
+                            },
+                            ticks: { color: '#e0e0e0' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                             suggestedMax: 150 // 分数对比，最大150
+                        } : undefined,
+                        x: chartType !== 'radar' ? { // 非雷达图的X轴配置
+                            ticks: { color: '#e0e0e0' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        } : undefined
+                    }
+                }
+            };
+
+             try {
+                 currentComparisonChart = new Chart(compCtx, chartConfig);
+            } catch (error) {
+                 console.error("绘制对比图表时发生错误:", error);
+                 // 销毁可能部分创建的图表实例
+                 if(currentComparisonChart) {
+                     currentComparisonChart.destroy();
+                     currentComparisonChart = null;
+                 }
+                 // 清空画布并显示错误提示
+                 compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height);
+                 compCtx.fillStyle = '#ff6384'; // 错误文字颜色
+                 compCtx.font = '16px Arial';
+                 compCtx.textAlign = 'center';
+                 compCtx.fillText('对比图表绘制失败，请检查数据或联系支持。', comparisonChartCanvas.width / 2, comparisonChartCanvas.height / 2);
+            }
+        }
+
+
+        // 成绩对比函数 (触发文本和图表对比)
+        function compareStudents() {
+            const primaryStudentName = primaryStudentSelect.value;
+            const secondaryStudentNames = Array.from(secondaryStudentSelect.selectedOptions).map(option => option.value);
+
+            // 至少需要一个主要学生和一个次要学生才能进行对比
+            if (!primaryStudentName || secondaryStudentNames.length === 0) {
+                comparisonResultsDiv.innerHTML = '<p style="color: #ff6384;">请选择主要对比人和至少一个次要对比人进行对比。</p>';
+                 // 清空对比图表
+                 if(currentComparisonChart) currentComparisonChart.destroy();
+                 currentComparisonChart = null;
+                 const compCtx = comparisonChartCanvas.getContext('2d');
+                 compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height); // 清空画布
+
+                lastComparedPrimaryStudentName = null; // 清空上次对比记录
+                lastComparedSecondaryStudentNames = [];
+
+                return;
+            }
+
+            const primaryStudent = studentsData.find(s => s.姓名 === primaryStudentName);
+            const secondaryStudents = studentsData.filter(s => secondaryStudentNames.includes(s.姓名));
+
+            // 确保所有选中的学生数据都找到了
+            if (!primaryStudent || secondaryStudents.length !== secondaryStudentNames.length) {
+                 comparisonResultsDiv.innerHTML = '<p style="color: #ff6384;">未能找到选定的学生数据。</p>';
+                 // 清空对比图表
+                 if(currentComparisonChart) currentComparisonChart.destroy();
+                 currentComparisonChart = null;
+                 const compCtx = comparisonChartCanvas.getContext('2d');
+                 compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height); // 清空画布
+
+                 lastComparedPrimaryStudentName = null; // 清空上次对比记录
+                 lastComparedSecondaryStudentNames = [];
+                return;
+            }
+
+            // 存储当前对比的学生，用于切换图表类型时重绘
+            lastComparedPrimaryStudentName = primaryStudentName;
+            lastComparedSecondaryStudentNames = secondaryStudentNames;
+
+            // 1. 生成文本对比结果
+            generateComparisonTextResults(primaryStudent, secondaryStudents);
+
+            // 2. 渲染对比图表 (默认使用当前选中的对比图表类型)
+            renderComparisonChart(primaryStudentName, secondaryStudentNames, comparisonChartTypeSelect.value);
+        }
+
+        // 事件监听器
+        addStudentBtn.addEventListener('click', addStudentInputForm);
+
+        studentSelect.addEventListener('change', (event) => {
+            const selectedStudentName = event.target.value;
+            const selectedChartType = chartTypeSelect.value;
+            if (selectedStudentName) { // 确保有学生被选中
+                 renderSingleStudentChart(selectedStudentName, selectedChartType);
+            } else {
+                 // 如果没有学生，清空图表
+                 if(currentSingleStudentChart) currentSingleStudentChart.destroy();
+                 currentSingleStudentChart = null;
+                 const ctx = gradeChartCanvas.getContext('2d');
+                 ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height); // 清空画布
+            }
+        });
+
+        chartTypeSelect.addEventListener('change', (event) => {
+            const selectedStudentName = studentSelect.value; // 获取当前选中的学生
+            const selectedChartType = event.target.value;
+            if (selectedStudentName) { // 确保有学生被选中
+                renderSingleStudentChart(selectedStudentName, selectedChartType);
+            } else {
+                 // 如果没有学生，清空图表
+                 if(currentSingleStudentChart) currentSingleStudentChart.destroy();
+                 currentSingleStudentChart = null;
+                 const ctx = gradeChartCanvas.getContext('2d');
+                 ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height); // 清空画布
+            }
+        });
+
+        // 对比按钮事件监听器
+        compareBtn.addEventListener('click', compareStudents);
+
+        // 对比图表类型选择器事件监听器 - 切换类型时重绘对比图表
+        comparisonChartTypeSelect.addEventListener('change', (event) => {
+            if (lastComparedPrimaryStudentName && lastComparedSecondaryStudentNames.length > 0) {
+                renderComparisonChart(lastComparedPrimaryStudentName, lastComparedSecondaryStudentNames, event.target.value);
+            }
+             // 如果没有进行过对比，切换类型时不做任何事
+        });
+
+
+        // 页面加载完成后执行的初始化
+        document.addEventListener('DOMContentLoaded', () => {
+             // 页面加载时自动添加一个学生输入框
+             addStudentInputForm();
+             importedStudentsDiv.textContent = '请在上方粘贴成绩数据并点击导入。';
+             studentSelect.innerHTML = '';
+             primaryStudentSelect.innerHTML = '';
+             secondaryStudentSelect.innerHTML = '';
+             comparisonResultsDiv.innerHTML = '';
+
+             // 初始清空图表画布
+             const ctx = gradeChartCanvas.getContext('2d');
+             ctx.clearRect(0, 0, gradeChartCanvas.width, gradeChartCanvas.height);
+             const compCtx = comparisonChartCanvas.getContext('2d');
+             compCtx.clearRect(0, 0, comparisonChartCanvas.width, comparisonChartCanvas.height);
+        });
+
+    </script>
 </body>
 </html>
